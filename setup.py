@@ -5,11 +5,11 @@ All rights reserved.
 This source code is a Python implementation of SIMLR for the following paper published in Nature Methods:
 Visualization and analysis of single-cell RNA-seq data by kernel-based similarity learning
 """
-from setuptools import setup
+from distutils.core import setup
 
 setup(
     name='SIMLR',
-    version='0.1.0',
+    version='0.1.3',
     author='Bo Wang',
     author_email='bowang87@stanford.edu',
     url='https://github.com/bowang87/SIMLR-PY',
