@@ -1,0 +1,5 @@
+fbpca==1.0
+numpy==1.8.0
+scikit-learn==0.17.1
+scipy==0.13.2
+annoy==1.8.0
