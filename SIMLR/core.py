@@ -70,7 +70,7 @@ class SIMLR_LARGE(object):
         t = AnnoyIndex(d)
         for i in xrange(n):
             t.add_item(i,GE_csc[i,:])
-        t.build(d)
+        t.build(100)
         t.save('test.ann')
         u = AnnoyIndex(d)
         u.load('test.ann')
@@ -111,7 +111,7 @@ class SIMLR_LARGE(object):
 
 
     def mex_multipleK(self, val, ind):
-        val *= val
+        #val *= val
         KK = self.num_of_neighbor
         ismemory = self.mode_of_memory
         m,n=val.shape

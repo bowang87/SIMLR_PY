@@ -15,4 +15,11 @@ setup(
     url='https://github.com/bowang87/SIMLR-PY',
     description='Visualization and analysis of single-cell RNA-seq data by kernel-based similarity learning',
     packages=['SIMLR'],
+    install_requires=[
+                   'fbpca>=1.0',
+                   'numpy>=1.8.0',
+                   'scipy>=0.13.2',
+                   'annoy>=1.8.0',
+                   'scikit-learn>=0.17.1',
+     ],
     classifiers=[])

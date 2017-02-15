@@ -5,7 +5,8 @@ from __future__ import unicode_literals
 
 import numpy as np
 from scipy.sparse import csr_matrix, csc_matrix, linalg
-from fbpca import svd, pca
+from sklearn.decomposition import TruncatedSVD
+from fbpca import pca
 import time
 
 
@@ -105,12 +106,10 @@ def euclidean_proj_simplex(v, s=1):
 
 
 def fast_pca(in_X, no_dim):
-    (U, s, Va) = pca(csc_matrix(in_X), no_dim, True, 5)
+    (U, s, Va) = pca(csc_matrix(in_X), no_dim, False, 8)
     del Va
     U[:] = U*np.sqrt(np.abs(s))
     D = 1/(np.sqrt(np.sum(U*U,axis = 1)+np.finfo(float).eps)+np.finfo(float).eps)
     return U*D[:,np.newaxis]
-
-
 
 
