@@ -5,7 +5,6 @@ sys.path.insert(0,os.path.abspath('..'))
 import time
 import numpy as np
 import SIMLR
-import SIMLR_tsne
 from sklearn.metrics.cluster import normalized_mutual_info_score as nmi
 from sklearn.metrics.cluster import adjusted_rand_score as ari
 from scipy.sparse import csr_matrix
@@ -33,14 +32,3 @@ y_pred = simlr.fast_minibatch_kmeans(F,c)
 print('NMI value is %f \n' % nmi(y_pred.flatten(),label.flatten()))
 print('ARI value is %f \n' % ari(y_pred.flatten(),label.flatten()))
 
-### once we have the similarity, we can calculate visulization (2-D or 3D embeddings) of the cells from the similarity
-Y = SIMLR_tsne.bh_sne(S)
-
-#show the visulization results
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-colors = cm.rainbow(np.linspace(0,1,np.max(label)))
-plt.scatter(Y[:,0],Y[:,1], color = np.take(colors, label.flatten()-1, axis = 0), alpha = 0.8)
-plt.title('SIMLR visulization')
-plt.legend(loc=2)
-plt.show()

@@ -61,7 +61,7 @@ class SIMLR_LARGE(object):
     def __init__(self, num_of_rank, num_of_neighbor=30, mode_of_memory = False, max_iter = 5):
         self.num_of_rank = int(num_of_rank)
         self.num_of_neighbor = int(num_of_neighbor)
-        self.mode_of_memory = False
+        self.mode_of_memory = mode_of_memory
         self.max_iter = int(max_iter)
 
     def nearest_neighbor_search(self, GE_csc):
@@ -89,9 +89,16 @@ class SIMLR_LARGE(object):
     def mex_L2_distance(self, F, ind):
         m,n = ind.shape
         I = np.tile(np.arange(m), n)
-        temp = np.take(F, I, axis = 0) - np.take(F, ind.ravel(order = 'F'),axis=0)
-        temp = (temp*temp).sum(axis=1)
-        return temp.reshape((m,n),order = 'F')
+        if self.mode_of_memory:
+            temp = np.zeros((m,n))
+            for i in range(n):
+                temptemp = np.take(F, np.arange(m), axis = 0) - np.take(F, ind[:,i],axis=0)
+                temp[:,i] = (temptemp*temptemp).sum(axis=1)
+            return temp
+        else:
+            temp = np.take(F, I, axis = 0) - np.take(F, ind.ravel(order = 'F'),axis=0)
+            temp = (temp*temp).sum(axis=1)
+            return temp.reshape((m,n),order = 'F')
 
 
 
@@ -105,7 +112,7 @@ class SIMLR_LARGE(object):
             else:
                 distX += alpha[i]*temp
             DD[i] = ((temp*S).sum(axis = 0)/(S.shape[0]+0.0)).mean(axis = 0)
-        alphaK0 = umkl_bo(DD, 1.0/len(DD));
+        alphaK0 = helper.umkl_bo(DD, 1.0/len(DD));
         alphaK0 = alphaK0/np.sum(alphaK0)
         return distX, alphaK0
 
@@ -151,7 +158,8 @@ class SIMLR_LARGE(object):
         d = -np.sort(-np.real(d))
         return np.real(V),d/np.max(abs(d))
     def fast_minibatch_kmeans(self, X,C):
-        cls = MiniBatchKMeans(n_clusters=C, n_init = 100, max_iter = 100)
+        batchsize = int(min(1000, np.round(X.shape[0]/C/C)))
+        cls = MiniBatchKMeans(init='k-means++',n_clusters=C, batch_size = batchsize, n_init = 100, max_iter = 100)
         return cls.fit_predict(X)
 
     def fit(self, X, beta = 0.8):
@@ -168,7 +176,7 @@ class SIMLR_LARGE(object):
         D_Kernels, alphaK = self.mex_multipleK(val, ind)
         del val
         if is_memory:
-            distX,alphaK = self.Cal_distance_memory(np.ones((ind.shape[0], ind.shape[1])), alphaK)
+            distX,alphaK0 = self.Cal_distance_memory(np.ones((ind.shape[0], ind.shape[1])), alphaK)
         else:
             distX = D_Kernels.dot(alphaK)
         rr = (.5*(K*distX[:,K+2] - distX[:,np.arange(1,K+1)].sum(axis = 1))).mean()
