@@ -50,6 +50,10 @@ import time
 from sklearn.decomposition import TruncatedSVD
 from sklearn.cluster import MiniBatchKMeans, KMeans
 
+if sys.version_info.major == 3:
+    xrange = range  # xrange() was renamed to range() in Python 3.
+
+
 class SIMLR_LARGE(object):
     """A class for large-scale SIMLR.
 
