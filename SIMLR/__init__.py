@@ -1,1 +1,1 @@
-from core import SIMLR_LARGE
+from .core import SIMLR_LARGE
