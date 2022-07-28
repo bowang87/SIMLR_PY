@@ -68,7 +68,7 @@ class SIMLR_LARGE(object):
         K = self.num_of_neighbor * 2
         n,d = GE_csc.shape
         t = AnnoyIndex(d)
-        for i in xrange(n):
+        for i in range(n):
             t.add_item(i,GE_csc[i,:])
         t.build(100)
         t.save('test.ann')
@@ -77,7 +77,7 @@ class SIMLR_LARGE(object):
         os.remove('test.ann')
         val = np.zeros((n,K))
         ind = np.zeros((n,K))
-        for i in xrange(n):
+        for i in range(n):
             tmp, tmp1 = u.get_nns_by_item(i,K, include_distances=True)
             ind[i,:] = tmp
             val[i,:] = tmp1
@@ -105,7 +105,7 @@ class SIMLR_LARGE(object):
     def Cal_distance_memory(self, S, alpha):
         NT = len(alpha)
         DD = alpha.copy()
-        for i in xrange(NT):
+        for i in range(NT):
             temp = np.load('Kernel_' + str(i)+'.npy')
             if i == 0:
                 distX = alpha[0]*temp
@@ -214,7 +214,7 @@ class SIMLR_LARGE(object):
                 distX = D_Kernels.dot(alphaK)
 
         if is_memory:
-            for i in xrange(len(alphaK)):
+            for i in range(len(alphaK)):
                 os.remove('Kernel_' + str(i) + '.npy')
         rows = np.tile(np.arange(n), S0.shape[1])
         cols = ind.ravel(order='F')
