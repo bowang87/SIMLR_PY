@@ -1,5 +1,5 @@
 Metadata-Version: 2.1
-Name: SIMLR-PY3
+Name: SIMLR_PY3
 Version: 0.1.4
 Summary: Visualization and analysis of single-cell RNA-seq data by kernel-based similarity learning
 Home-page: https://github.com/SIAT-BIT-CXH/SIMLR_PY
