@@ -1,13 +1,12 @@
 Metadata-Version: 2.1
-Name: SIMLR
-Version: 0.1.3
+Name: SIMLR-PY3
+Version: 0.1.4
 Summary: Visualization and analysis of single-cell RNA-seq data by kernel-based similarity learning
-Home-page: https://github.com/bowang87/SIMLR-PY
-Author: Bo Wang
-Author-email: bowang87@stanford.edu
+Home-page: https://github.com/SIAT-BIT-CXH/SIMLR_PY
+Author: Xuhang Chen
+Author-email: cxhhg11@gmail.com
 License: UNKNOWN
 Platform: UNKNOWN
 License-File: LICENSE.txt
 
 UNKNOWN
-

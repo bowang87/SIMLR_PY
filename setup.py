@@ -8,13 +8,13 @@ Visualization and analysis of single-cell RNA-seq data by kernel-based similarit
 from distutils.core import setup
 
 setup(
-    name='SIMLR',
-    version='0.1.3',
-    author='Bo Wang',
-    author_email='bowang87@stanford.edu',
-    url='https://github.com/bowang87/SIMLR-PY',
+    name='SIMLR-PY3',
+    version='0.1.4',
+    author='Xuhang Chen',
+    author_email='cxhhg11@gmail.com',
+    url='https://github.com/SIAT-BIT-CXH/SIMLR_PY',
     description='Visualization and analysis of single-cell RNA-seq data by kernel-based similarity learning',
-    packages=['SIMLR'],
+    packages=['SIMLR-PY3'],
     install_requires=[
                    'fbpca>=1.0',
                    'numpy>=1.8.0',
